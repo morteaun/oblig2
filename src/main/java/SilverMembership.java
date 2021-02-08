@@ -3,12 +3,12 @@ public class SilverMembership extends Membership{
 
     @Override
     int registerPoints(int bonusPointBalance, int newPoints) {
-        // TODO: 2/8/2021 make method
+        return Math.round(bonusPointBalance + newPoints * POINTS_SCALING_FACTOR);
     }
 
     @Override
     String getMembershipName() {
-        // TODO: 2/8/2021 make method
+        return "Silver";
     }
 
 }

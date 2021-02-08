@@ -4,12 +4,16 @@ public class GoldMembership extends Membership{
 
     @Override
     int registerPoints(int bonusPointBalance, int newPoints) {
-        // TODO: 2/8/2021 make method
+        if (bonusPointBalance < 90000){
+            return Math.round(bonusPointBalance + newPoints * POINTS_SCALING_FACTOR_1);
+        } else {
+            return Math.round(bonusPointBalance + newPoints * POINTS_SCALING_FACTOR_2);
+        }
     }
 
     @Override
     String getMembershipName() {
-        // TODO: 2/8/2021 make method
+        return "Gold";
     }
 
 }
