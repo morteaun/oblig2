@@ -42,22 +42,23 @@ public class BonusMember {
     }
 
     public void registerBonusPoints(int newPoints){
-        this.bonusPointsBalance = getMembership().registerPoints(getBonusPointsBalance(),newPoints);
+        bonusPointsBalance = getMembership().registerPoints(getBonusPointsBalance(),newPoints);
         checkAndSetMembership();
     }
 
     public String getMembershipLevel(){ return getMembership().getMembershipName(); }
 
     public void checkAndSetMembership(){
-        if (!getMembershipLevel().equals("Gold") && bonusPointsBalance >= GOLD_LIMIT){
+        if (membership == null){
+            if (bonusPointsBalance < SILVER_LIMIT){membership = new BasicMembership();}
+            else if (bonusPointsBalance < GOLD_LIMIT){membership = new SilverMembership();}
+            else {membership = new GoldMembership();}
+        }
+        else if (!getMembershipLevel().equals("Gold") && bonusPointsBalance >= GOLD_LIMIT){
             membership = new GoldMembership();
         }
-        else if (!getMembershipLevel().equals("Silver") && bonusPointsBalance >= SILVER_LIMIT){
+        else if (getMembershipLevel().equals("Basic") && bonusPointsBalance >= SILVER_LIMIT){
             membership = new SilverMembership();
-        }
-        else if (!getMembershipLevel().equals("Gold") && !getMembershipLevel().equals("Silver") &&
-                !getMembershipLevel().equals("Basic")){
-            membership = new BasicMembership();
         }
     }
 
