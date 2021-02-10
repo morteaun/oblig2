@@ -18,6 +18,7 @@ public class BonusMember {
     private static final int SILVER_LIMIT = 25000;
     private static final int GOLD_LIMIT = 75000;
 
+
     /**
      * Creates a new instance of BonusMember, and then runs
      * checkAndSetMembership() to make sure that a membership level is set.
@@ -97,14 +98,14 @@ public class BonusMember {
      */
     public void checkAndSetMembership(){
         if (membership == null){
-            if (bonusPointsBalance < SILVER_LIMIT){membership = new BasicMembership();}
-            else if (bonusPointsBalance < GOLD_LIMIT){membership = new SilverMembership();}
-            else {membership = new GoldMembership();}
+            if (bonusPointsBalance >= GOLD_LIMIT){membership = new GoldMembership();}
+            else if (bonusPointsBalance >= SILVER_LIMIT){membership = new SilverMembership();}
+            else {membership = new BasicMembership();}
         }
-        else if (!getMembershipLevel().equals("Gold") && bonusPointsBalance >= GOLD_LIMIT){
+        else if (!(membership instanceof GoldMembership) && bonusPointsBalance >= GOLD_LIMIT){
             membership = new GoldMembership();
         }
-        else if (getMembershipLevel().equals("Basic") && bonusPointsBalance >= SILVER_LIMIT){
+        else if (membership instanceof BasicMembership && bonusPointsBalance >= SILVER_LIMIT){
             membership = new SilverMembership();
         }
     }
